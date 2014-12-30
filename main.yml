@@ -52,15 +52,22 @@
         - openssl-devel
         - rpm-build
         - gcc-c++
+        - bzip2
+        - iconv-devel
+        - libtool
+        - zlib
         - zlib-devel
         - httpd-devel
         - openssl-devel
         - curl-devel
         - ncurses-devel
         - gdbm-devel
+        - readline
         - readline-devel
         - sqlite-devel
         - libyaml-devel
+        - libffi-devel
+        - bison
     - name: git clone rbenv
       git: repo=https://github.com/sstephenson/rbenv.git dest=/home/vagrant/.rbenv
       sudo: no

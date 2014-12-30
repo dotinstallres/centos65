@@ -76,10 +76,6 @@
     - name: reload shell
       shell: /bin/bash -l
       sudo: no
-    - name: rbenv check
-      shell: /bin/bash -lc "rbenv "
-      sudo: no
-
     - name: git clone ruby-build
       git: repo=https://github.com/sstephenson/ruby-build.git dest=/home/vagrant/.rbenv/plugins/ruby-build
       sudo: no

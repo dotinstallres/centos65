@@ -1,6 +1,8 @@
 ---
 - hosts: 127.0.0.1
   sudo: yes
+  vars:
+    - ruby_version: 2.2.0
   tasks:
     - name: yum update
       yum: name=* state=latest
@@ -12,7 +14,7 @@
       file: path=/etc/localtime state=absent
     - name: make symlink to JST
       file: src=/usr/share/zoneinfo/Asia/Tokyo dest=/etc/localtime state=link force=yes mode=0644
-    - name: change locale # タスク毎にsource実行される
+    - name: change locale
       command: sed -i "s/en_US/ja_JP/g" /etc/sysconfig/i18n
     - name: install remi repository
       command: rpm -Uvh --force http://rpms.famillecollet.com/enterprise/remi-release-6.rpm
@@ -43,6 +45,22 @@
     - name: start mysql and enabled
       service: name=mysqld state=started enabled=yes
 
+    - name: install ruby dependencies
+      yum: name={{item}} enablerepo=remi,epel state=present
+      with_items:
+        - gcc
+        - openssl-devel
+        - rpm-build
+        - gcc-c++
+        - zlib-devel
+        - httpd-devel
+        - openssl-devel
+        - curl-devel
+        - ncurses-devel
+        - gdbm-devel
+        - readline-devel
+        - sqlite-devel
+        - libyaml-devel
     - name: git clone rbenv
       git: repo=https://github.com/sstephenson/rbenv.git dest=/home/vagrant/.rbenv
       sudo: no
@@ -60,7 +78,7 @@
       git: repo=https://github.com/sstephenson/ruby-build.git dest=/home/vagrant/.rbenv/plugins/ruby-build
       sudo: no
     - name: install ruby
-      shell: /bin/bash -lc "rbenv install 2.2.0 && rbenv global 2.2.0 && rbenv rehash"
+      shell: /bin/bash -lc "rbenv install {{ruby_version}} && rbenv global {{ruby_version}} && rbenv rehash"
       sudo: no
 
   handlers:

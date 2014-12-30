@@ -1,5 +1,7 @@
+Setup local development environment.  Installs Apache, PHP, MySQL and Ruby.  See main.yml for more details.
+
 ```
-mkdir -p ~/Vagrant/mycentos && cd ~/Vagrant/mycentos
+mkdir mycentos && cd mycentos
 vagrant init chef/centos-6.5
 vi Vagrantfile # IP編集
 vagrant up
@@ -8,5 +10,6 @@ sudo yum -y install git
 git clone https://github.com/dotinstallres/centos65.git
 cd centos65
 ./run.sh
+/bin/bash -l
 ```
 

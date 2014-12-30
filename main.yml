@@ -50,18 +50,17 @@
       copy: src=bash_profile.custom dest=/home/vagrant/.bash_profile backup=yes
       sudo: no 
     - name: reload shell
-      shell: /bin/bash -lc "exec $SHELL -l"
+      shell: /bin/bash -l
       sudo: no
     - name: rbenv check
-      shell: /bin/bash -lc "rbenv"
+      shell: /bin/bash -lc "rbenv "
       sudo: no
 
-#    - name: git clone ruby-build
-#      git: repo=https://github.com/sstephenson/ruby-build.git dest=/home/vagrant/.rbenv/plugins/ruby-build
-#    - name: change owner
-#      file: dest=/home/vagrant/.rbenv group=vagrant owner=vagrant recurse=yes
-#    - name: install ruby # ここでrbenvが動かない...
-#      shell: bash -lc "rbenv install -l"
+    - name: git clone ruby-build
+      git: repo=https://github.com/sstephenson/ruby-build.git dest=/home/vagrant/.rbenv/plugins/ruby-build
+      sudo: no
+    - name: install ruby
+      shell: /bin/bash -lc "rbenv install 2.2.0 && rbenv global 2.2.0 && rbenv rehash"
 
   handlers:
     - name: restart apache

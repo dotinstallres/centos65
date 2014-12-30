@@ -48,13 +48,16 @@
     - name: update bash_profile
       copy: src=bash_profile.custom dest=/home/vagrant/.bash_profile backup=yes
     - name: reload shell
-      shell: /bin/bash -l
-    - name: git clone ruby-build
-      git: repo=https://github.com/sstephenson/ruby-build.git dest=/home/vagrant/.rbenv/plugins/ruby-build
-    - name: change owner
-      file: dest=/home/vagrant/.rbenv group=vagrant owner=vagrant recurse=yes
-    - name: install ruby # ここでrbenvが動かない...
-      shell: bash -lc "rbenv install -l"
+      shell: /bin/bash -lc "exec $SHELL -l"
+    - name: rbenv check
+      shell: /bin/bash -lc "rbenv"
+
+#    - name: git clone ruby-build
+#      git: repo=https://github.com/sstephenson/ruby-build.git dest=/home/vagrant/.rbenv/plugins/ruby-build
+#    - name: change owner
+#      file: dest=/home/vagrant/.rbenv group=vagrant owner=vagrant recurse=yes
+#    - name: install ruby # ここでrbenvが動かない...
+#      shell: bash -lc "rbenv install -l"
 
   handlers:
     - name: restart apache

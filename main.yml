@@ -45,12 +45,16 @@
 
     - name: git clone rbenv
       git: repo=https://github.com/sstephenson/rbenv.git dest=/home/vagrant/.rbenv
+      sudo: no
     - name: update bash_profile
       copy: src=bash_profile.custom dest=/home/vagrant/.bash_profile backup=yes
+      sudo: no 
     - name: reload shell
       shell: /bin/bash -lc "exec $SHELL -l"
+      sudo: no
     - name: rbenv check
       shell: /bin/bash -lc "rbenv"
+      sudo: no
 
 #    - name: git clone ruby-build
 #      git: repo=https://github.com/sstephenson/ruby-build.git dest=/home/vagrant/.rbenv/plugins/ruby-build

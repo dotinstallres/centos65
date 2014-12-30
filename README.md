@@ -1,5 +1,5 @@
 ```
-mkdir mycentos && cd mycentos
+mkdir -p ~/Vagrant/mycentos && cd ~/Vagrant/mycentos
 vagrant init chef/centos-6.5
 vi Vagrantfile # IP編集
 vagrant up

@@ -73,16 +73,13 @@
       copy: src=bash_profile.custom dest=/home/vagrant/.bash_profile backup=yes
       sudo: no 
     - name: reload shell
-      shell: /bin/bash -l
+      shell: exec /bin/bash -l
       sudo: no
     - name: git clone ruby-build
       git: repo=https://github.com/sstephenson/ruby-build.git dest=/home/vagrant/.rbenv/plugins/ruby-build
       sudo: no
     - name: install ruby
       shell: /bin/bash -lc "rbenv install {{ruby_version}} && rbenv rehash && rbenv global {{ruby_version}}"
-      sudo: no
-    - name: source bash_profile
-      shell: . /home/vagrant/.bash_profile
       sudo: no
   handlers:
     - name: restart apache

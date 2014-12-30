@@ -61,6 +61,7 @@
       sudo: no
     - name: install ruby
       shell: /bin/bash -lc "rbenv install 2.2.0 && rbenv global 2.2.0 && rbenv rehash"
+      sudo: no
 
   handlers:
     - name: restart apache

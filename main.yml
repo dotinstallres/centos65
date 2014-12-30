@@ -51,9 +51,10 @@
       shell: /bin/bash -l
     - name: git clone ruby-build
       git: repo=https://github.com/sstephenson/ruby-build.git dest=/home/vagrant/.rbenv/plugins/ruby-build
+    - name: change owner
+      file: dest=/home/vagrant/.rbenv group=vagrant owner=vagrant recurse=yes
     - name: install ruby # ここでrbenvが動かない...
       shell: bash -lc "rbenv install -l"
-
 
   handlers:
     - name: restart apache

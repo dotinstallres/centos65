@@ -12,7 +12,7 @@
       yum: name=libselinux-python state=latest
     - name: remove localtime
       file: path=/etc/localtime state=absent
-    - name: make symlink to JST
+    - name: change timezone
       file: src=/usr/share/zoneinfo/Asia/Tokyo dest=/etc/localtime state=link force=yes mode=0644
     - name: change locale
       command: sed -i "s/en_US/ja_JP/g" /etc/sysconfig/i18n
@@ -66,21 +66,33 @@
         - libyaml-devel
         - libffi-devel
         - bison
+
     - name: git clone rbenv
       git: repo=https://github.com/sstephenson/rbenv.git dest=/home/vagrant/.rbenv
       sudo: no
     - name: update bash_profile
       copy: src=bash_profile.custom dest=/home/vagrant/.bash_profile backup=yes
       sudo: no 
-    - name: reload shell
-      shell: exec /bin/bash -l
-      sudo: no
+
+    - name: rbenv | check ruby-build installed
+      command: test -x /home/vagrant/.rbenv/plugins/ruby-build
+      register: rbuild_present
+      ignore_errors: yes
     - name: git clone ruby-build
       git: repo=https://github.com/sstephenson/ruby-build.git dest=/home/vagrant/.rbenv/plugins/ruby-build
+      when: rbuild_present.rc != 0
+      sudo: no
+
+    - name: rbenv | check ruby {{ruby_version}} installed
+      shell: /bin/bash -lc "rbenv versions | grep {{ruby_version}}"
+      register: ruby_installed
+      ignore_errors: yes
       sudo: no
     - name: install ruby
       shell: /bin/bash -lc "rbenv install {{ruby_version}} && rbenv rehash && rbenv global {{ruby_version}}"
+      when: ruby_installed.rc != 0
       sudo: no
+
   handlers:
     - name: restart apache
       service: name=httpd state=restarted

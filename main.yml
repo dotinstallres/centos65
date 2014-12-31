@@ -90,7 +90,7 @@
       when: rbuild_present.rc != 0
       sudo: no
 
-    - name: check ruby {{ruby_version}} installed
+    - name: check ruby installed
       shell: /bin/bash -lc "rbenv versions | grep {{ruby_version}}"
       register: ruby_installed
       ignore_errors: yes

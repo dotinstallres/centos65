@@ -67,23 +67,30 @@
         - libffi-devel
         - bison
 
+    - name: check rbenv installed
+      command: test -x /home/vagrant/.rbenv
+      register: rbenv_present
+      ignore_errors: yes
+      sudo: no
     - name: git clone rbenv
       git: repo=https://github.com/sstephenson/rbenv.git dest=/home/vagrant/.rbenv
+      when: rbenv_present.rc != 0
       sudo: no
     - name: update bash_profile
       copy: src=bash_profile.custom dest=/home/vagrant/.bash_profile backup=yes
       sudo: no 
 
-    - name: rbenv | check ruby-build installed
+    - name: check ruby-build installed
       command: test -x /home/vagrant/.rbenv/plugins/ruby-build
       register: rbuild_present
       ignore_errors: yes
+      sudo: no
     - name: git clone ruby-build
       git: repo=https://github.com/sstephenson/ruby-build.git dest=/home/vagrant/.rbenv/plugins/ruby-build
       when: rbuild_present.rc != 0
       sudo: no
 
-    - name: rbenv | check ruby {{ruby_version}} installed
+    - name: check ruby {{ruby_version}} installed
       shell: /bin/bash -lc "rbenv versions | grep {{ruby_version}}"
       register: ruby_installed
       ignore_errors: yes

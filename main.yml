@@ -100,6 +100,18 @@
       when: ruby_installed.rc != 0
       sudo: no
 
+    - name: check node js installed
+      shell: /bin/bash -lc "node -v"
+      register: node_installed
+      ignore_errors: yes
+      sudo: no
+    - name: install node script
+      shell: /bin/bash -lc "curl -sL https://rpm.nodesource.com/setup | bash -"
+      when: node_installed.rc != 0
+    - name: install nodejs
+      yum: name=nodejs state=latest
+      when: node_installed.rc != 0
+
   handlers:
     - name: restart apache
       service: name=httpd state=restarted

@@ -1,4 +1,4 @@
-Setup local development environment.  Installs Apache, PHP, MySQL and Ruby.  See main.yml for more details.
+Setup local development environment.  Installs Apache, PHP, MySQL, Ruby and Node.js.  See main.yml for more details.
 
 ```
 mkdir mycentos && cd mycentos

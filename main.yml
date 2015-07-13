@@ -95,6 +95,13 @@
       when: rbuild_present.rc != 0
       sudo: no
 
+    - name: update rbenv
+      command: git pull --rebase chdir=/home/vagrant/.rbenv
+      sudo: no
+    - name: update ruby-build
+      command: git pull --rebase chdir=/home/vagrant/.rbenv/plugins/ruby-build
+      sudo: no
+
     - name: check ruby installed
       shell: /bin/bash -lc "rbenv versions | grep {{ruby_version}}"
       register: ruby_installed

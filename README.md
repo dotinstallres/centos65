@@ -12,14 +12,3 @@ cd centos65
 ./run.sh
 exec $SHELL -l
 ```
-
-If you need to update the script, please follow the instruction below.
-
-```
-cd
-git clone https://github.com/dotinstallres/centos65.git
-cd centos65
-./run.sh
-```
-
-

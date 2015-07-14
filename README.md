@@ -17,7 +17,9 @@ If you need to update the environment, please follow instructions below.
 
 ```
 cd
-cd mycentos
+cd mycentos # Vagrantfileがあるフォルダに移動
+vagrant up
+vagrant ssh
 cd centos65
 git pull --rebase
 ./run.sh

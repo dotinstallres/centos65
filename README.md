@@ -12,3 +12,16 @@ cd centos65
 ./run.sh
 exec $SHELL -l
 ```
+
+If you need to update the environment, please follow instructions below.
+
+```
+cd
+cd mycentos
+cd centos65
+git pull
+./run.sh
+exec $SHELL -l
+```
+
+

@@ -19,7 +19,7 @@ If you need to update the environment, please follow instructions below.
 cd
 cd mycentos
 cd centos65
-git pull
+git pull --rebase
 ./run.sh
 exec $SHELL -l
 ```

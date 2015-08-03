@@ -4,8 +4,6 @@
   vars:
     - ruby_version: 2.2.2
   tasks:
-    - name: copy yum.conf.custom
-      copy: src=yum.conf.custom dest=/etc/yum.conf backup=yes
     - name: yum update
       yum: name=* state=latest
     - name: disable iptables

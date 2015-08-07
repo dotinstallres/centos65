@@ -18,6 +18,8 @@
       command: sed -i "s/en_US/ja_JP/g" /etc/sysconfig/i18n
     - name: install remi repository
       command: rpm -Uvh --force http://rpms.famillecollet.com/enterprise/remi-release-6.rpm
+    - name: install man
+      yum: name=man state=latest
     - name: install apache
       yum: name=httpd state=latest
     - name: start apache and enabled

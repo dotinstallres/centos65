@@ -2,7 +2,7 @@ Setup local development environment.  Installs Apache, PHP, MySQL, Ruby and Node
 
 ```
 mkdir mycentos && cd mycentos
-vagrant init chef/centos-6.5
+vagrant init bent/centos-6.7
 vi Vagrantfile # IP編集
 vagrant up
 vagrant ssh

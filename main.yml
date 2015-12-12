@@ -39,6 +39,7 @@
         - php-mysqlnd
         - php-mbstring
         - php-gd
+        - php-intl
       notify:
         - restart apache
     - name: copy php.ini.custom

@@ -15,9 +15,9 @@
     - name: change timezone
       file: src=/usr/share/zoneinfo/Asia/Tokyo dest=/etc/localtime state=link force=yes mode=0644
     - name: change locale
-      command: sed -i "s/en_US/ja_JP/g" /etc/sysconfig/i18n
+      command: localectl set-locale LANG=ja_JP.utf8
     - name: install remi repository
-      command: rpm -Uvh --force http://rpms.famillecollet.com/enterprise/remi-release-6.rpm
+      yum: name=http://rpms.famillecollet.com/enterprise/remi-release-6.rpm state=present
     - name: install man
       yum: name=man state=latest
     - name: install apache
@@ -29,7 +29,7 @@
     - name: install gd-last
       yum: name=gd-last enablerepo=remi state=latest
     - name: install php
-      yum: name={{item}} enablerepo=remi-php56 state=present
+      yum: name={{item}} state=present
       with_items:
         - php
         - php-common
@@ -46,12 +46,12 @@
       copy: src=php.ini.custom dest=/etc/php.ini backup=yes
       notify:
         - restart apache
-    - name: install mysql
-      yum: name=mysql-server enablerepo=remi,epel state=present
+    - name: install mariadb
+      yum: name=mariadb-server enablerepo=remi,epel state=present
     - name: copy my.cnf.custom
       copy: src=my.cnf.custom dest=/etc/my.cnf backup=yes
-    - name: start mysql and enabled
-      service: name=mysqld state=started enabled=yes
+    - name: mysql enabled and start
+      service: name=mysql enabled=yes state=started
     - name: install ruby dependencies
       yum: name={{item}} enablerepo=remi,epel state=present
       with_items:
@@ -130,4 +130,3 @@
   handlers:
     - name: restart apache
       service: name=httpd state=restarted
-

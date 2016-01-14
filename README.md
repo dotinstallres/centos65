@@ -7,7 +7,7 @@ vi Vagrantfile # IP編集
 vagrant up
 vagrant ssh
 sudo yum -y install git
-git clone https://github.com/dotinstallres/centos65.git
+git clone https://github.com/segayuu/centos71.git
 cd centos71
 ./run.sh
 exec $SHELL -l

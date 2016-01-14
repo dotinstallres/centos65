@@ -8,7 +8,7 @@ vagrant up
 vagrant ssh
 sudo yum -y install git
 git clone https://github.com/dotinstallres/centos65.git
-cd centos65
+cd centos71
 ./run.sh
 exec $SHELL -l
 ```
@@ -20,7 +20,7 @@ cd
 cd mycentos # Vagrantfileがあるフォルダに移動
 vagrant up
 vagrant ssh
-cd centos65
+cd centos71
 git pull --rebase
 ./run.sh
 exec $SHELL -l

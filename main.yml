@@ -20,7 +20,6 @@
         state=present
         regexp=^LANG=
         line='LANG="ja_JP.UTF-8"'
-      # command: sed -i "s/en_US/ja_JP/g" /etc/sysconfig/i18n
     - name: install remi repository
       command: rpm -Uvh --force http://rpms.famillecollet.com/enterprise/remi-release-6.rpm
     - name: install man

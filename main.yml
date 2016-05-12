@@ -1,6 +1,6 @@
 ---
 - hosts: 127.0.0.1
-  sudo: yes
+  become: yes
   vars:
     - ruby_version: 2.2.2
   tasks:
@@ -15,7 +15,11 @@
     - name: change timezone
       file: src=/usr/share/zoneinfo/Asia/Tokyo dest=/etc/localtime state=link force=yes mode=0644
     - name: change locale
-      command: sed -i "s/en_US/ja_JP/g" /etc/sysconfig/i18n
+      lineinfile: >-
+        dest=/etc/sysconfig/i18n
+        state=present
+        regexp=^LANG=
+        line='LANG="ja_JP.UTF-8"'
     - name: install remi repository
       command: rpm -Uvh --force http://rpms.famillecollet.com/enterprise/remi-release-6.rpm
     - name: install man
@@ -80,47 +84,47 @@
       command: test -x /home/vagrant/.rbenv
       register: rbenv_present
       ignore_errors: yes
-      sudo: no
+      become: no
     - name: git clone rbenv
       git: repo=https://github.com/sstephenson/rbenv.git dest=/home/vagrant/.rbenv
       when: rbenv_present.rc != 0
-      sudo: no
+      become: no
     - name: update bash_profile
       copy: src=bash_profile.custom dest=/home/vagrant/.bash_profile backup=yes
-      sudo: no 
+      become: no
 
     - name: check ruby-build installed
       command: test -x /home/vagrant/.rbenv/plugins/ruby-build
       register: rbuild_present
       ignore_errors: yes
-      sudo: no
+      become: no
     - name: git clone ruby-build
       git: repo=https://github.com/sstephenson/ruby-build.git dest=/home/vagrant/.rbenv/plugins/ruby-build
       when: rbuild_present.rc != 0
-      sudo: no
+      become: no
 
     - name: update rbenv
       command: git pull --rebase chdir=/home/vagrant/.rbenv
-      sudo: no
+      become: no
     - name: update ruby-build
       command: git pull --rebase chdir=/home/vagrant/.rbenv/plugins/ruby-build
-      sudo: no
+      become: no
 
     - name: check ruby installed
       shell: /bin/bash -lc "rbenv versions | grep {{ruby_version}}"
       register: ruby_installed
       ignore_errors: yes
-      sudo: no
+      become: no
     - name: install ruby
       shell: /bin/bash -lc "rbenv install {{ruby_version}} && rbenv rehash && rbenv global {{ruby_version}}"
       when: ruby_installed.rc != 0
-      sudo: no
+      become: no
 
     - name: check node js installed
       shell: /bin/bash -lc "node -v"
       register: node_installed
       ignore_errors: yes
-      sudo: no
+      become: no
     - name: install node script
       shell: /bin/bash -lc "curl -sL https://rpm.nodesource.com/setup | bash -"
       when: node_installed.rc != 0

@@ -6,12 +6,6 @@ character_set_server=utf8
 default-storage-engine=InnoDB
 innodb_file_per_table
 
-[mysql]
-default-character-set=utf8
-
-[mysqldump]
-default-character-set=utf8
-
 # Disabling symbolic-links is recommended to prevent assorted security risks
 symbolic-links=0
 
@@ -36,6 +30,11 @@ user=mysql
 # http://dev.mysql.com/doc/refman/5.5/en/performance-schema.html
 ;performance_schema
 
+[mysql]
+default-character-set=utf8
+
+[mysqldump]
+default-character-set=utf8
 
 [mysqld_safe]
 log-error=/var/log/mysqld.log

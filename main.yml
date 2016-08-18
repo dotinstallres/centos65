@@ -1,5 +1,5 @@
 ---
-- hosts: 127.0.0.1
+- hosts: localhost
   become: yes
   vars:
     - ruby_version: 2.2.2

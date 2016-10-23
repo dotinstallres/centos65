@@ -21,7 +21,7 @@
         regexp=^LANG=
         line='LANG="ja_JP.UTF-8"'
     - name: install remi repository
-      command: rpm -Uvh --force http://rpms.famillecollet.com/enterprise/remi-release-6.rpm
+      command: rpm -Uvh --force http://mirror.innosol.asia/remi/enterprise/remi-release-6.rpm
     - name: install man
       yum: name=man state=latest
     - name: install apache
